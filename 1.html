@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selamat Ulang Tahun Hadistya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      color: white;
+    }
+
+    /* Neon Love Outline (Berdetak) */
+    .neon-love {
+      font-size: 20vw;
+      margin-top: 10vh;
+      color: transparent;
+      text-shadow: 
+        0 0 5px #ff0040, 0 0 10px #ff0040, 0 0 20px #ff0040, 0 0 40px #ff0040;
+      animation: beat 1s infinite;
+    }
+
+    @keyframes beat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    /* Kue Ulang Tahun Lucu */
+    .cake {
+      position: relative;
+      margin: 5vh auto;
+      width: 60vw;
+      height: 35vw;
+      background: pink;
+      border-radius: 10px;
+      box-shadow: 0 0 20px pink;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cake-layer {
+      width: 80%;
+      height: 30%;
+      background-color: #f7a7c3;
+      border-radius: 8px;
+      margin: 2vh 0;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cake-layer:first-child {
+      background-color: #ff91a6;
+    }
+
+    .cake-layer .decoration {
+      width: 40%;
+      height: 10%;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+      margin-top: 1vh;
+    }
+
+    /* Angka 21 di atas kue */
+    .number-21 {
+      font-size: 8vw;
+      font-weight: bold;
+      color: #fff;
+      position: absolute;
+      top: -12vw;
+      z-index: 10;
+      text-shadow: 0 0 5px #ff0040, 0 0 10px #ff0040;
+    }
+
+    /* Lilin */
+    .candle {
+      position: absolute;
+      top: -15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5vw;
+      height: 10vw;
+      background: white;
+    }
+
+    .flame {
+      position: absolute;
+      top: -35%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3vw;
+      height: 6vw;
+      background: gold;
+      border-radius: 50%;
+      animation: flicker 0.2s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% {
+        transform: translateX(-50%) scale(1);
+      }
+      50% {
+        transform: translateX(-50%) scale(1.1);
+      }
+    }
+
+    /* Teks Selamat Ulang Tahun */
+    .neon-text {
+      font-size: 7vw;
+      font-weight: bold;
+      margin-top: 5vh;
+      color: #fff;
+    }
+
+    /* Button */
+    .a {
+      margin-top: 5vh;
+      padding: 2vw 5vw;
+      background: #ff0040;
+      color: white;
+      font-size: 5vw;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #ff0040;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #ff5e73;
+    }
+
+    /* Kembang Api */
+    .fireworks {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Neon Love Outline (Berdetak) -->
+  <div class="neon-love">❤️</div>
+
+  <!-- Angka 21 di atas kue -->
+  <div class="number-21">21</div>
+
+  <!-- Kue Ulang Tahun Lucu -->
+  <div class="cake">
+    <div class="cake-layer">
+      <div class="decoration"></div>
+    </div>
+    <div class="cake-layer">
+      <div class="decoration"></div>
+    </div>
+    <div class="cake-layer">
+      <div class="decoration"></div>
+    </div>
+    <div class="candle">
+      <div class="flame" id="flame"></div>
+        <h1><br>21</h1>
+    </div>
+  </div>
+
+  <!-- Teks Selamat Ulang Tahun -->
+  <div class="neon-text">Selamat Ulang Tahun Ndut</div>
+    <p>Jangan Lupa Buat Make A Wish Dulu</p>
+  <!-- Button -->
+    <br><a href="2.html" class="a" onclick="blowCandle()">Tiup Lilin</a>
+
+  <!-- Fireworks -->
+  <canvas class="fireworks" id="fireworks"></canvas>
+
+  <script>
+    // Blow out the candle
+    function blowCandle() {
+      const flame = document.getElementById('flame');
+      flame.style.display = 'none';
+    }
+
+    // Fireworks animation
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const fireworks = [];
+
+    class Firework {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 2 + 1;
+        this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        this.life = 100;
+        this.velocity = {
+          x: (Math.random() - 0.5) * 4,
+          y: (Math.random() - 0.5) * 4,
+        };
+      }
+
+      update() {
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+        this.size -= 0.05;
+        this.life -= 1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function animateFireworks() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Add new fireworks every so often
+      if (Math.random() < 0.1) {
+        fireworks.push(new Firework(Math.random() * canvas.width, canvas.height));
+      }
+
+      // Update and draw fireworks
+      fireworks.forEach((firework, index) => {
+        firework.update();
+        firework.draw();
+        if (firework.life <= 0) {
+          fireworks.splice(index, 1);
+        }
+      });
+
+      requestAnimationFrame(animateFireworks);
+    }
+
+    animateFireworks();
+  </script>
+
+</body>
+</html>
